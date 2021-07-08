@@ -2,20 +2,19 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build master') {
+            when { branch 'master' }
             steps {
-                echo 'Building..'
-                when {
-                    branch 'master'
-                    sh 'docker build .'
-                }
-                when {
-                    branch 'dev'
-                    sh 'docker build -f Dockerfile.dev  .'
-                    echo 'Dev branch builded.'
-                }
+                echo 'Building..'            
+                sh 'docker build .'
             }
         }
+        stage('Build dev') {
+            when { branch 'dev' }
+            steps {
+                echo 'Building..'            
+                sh 'docker build -f Dockerfile.dev .'
+            }
         stage('Test') {
             steps {
                 echo 'Testing..'
