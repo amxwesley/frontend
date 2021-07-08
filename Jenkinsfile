@@ -15,6 +15,7 @@ pipeline {
                 echo 'Building..'            
                 sh 'docker build -f Dockerfile.dev .'
             }
+        }
         stage('Test') {
             steps {
                 echo 'Testing..'
